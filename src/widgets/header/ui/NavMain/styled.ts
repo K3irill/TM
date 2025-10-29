@@ -54,6 +54,10 @@ export const NavMain = styled.nav`
 		}
 	}
 
+	li[data-active='true'] span {
+		color: #ff4fb6;
+	}
+
 	@media (max-width: 640px) {
 		a {
 			font-size: 0.9rem;

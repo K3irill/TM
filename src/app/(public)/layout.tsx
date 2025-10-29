@@ -3,9 +3,10 @@ import { Nabla, Inter, Red_Rose } from 'next/font/google'
 import '../../styles/base.scss'
 import StoreProvider from '../providers/StoreProvider'
 import { QueryProvider } from '../providers/QueryProvider'
-import Header from '@/widgets/header/ui/Header/Header'
+import Header from '@/widgets/header/Header'
 import { IHeaderModes } from '@/widgets/header/model/types'
 import StyledComponentsRegistry from '@/shared/ui/StyledComponentsRegistry/StyledComponentsRegistry.tsx'
+import Footer from '@/widgets/footer/ui/Footer/Footer'
 
 const nabla = Nabla({
 	variable: '--font-nabla',
@@ -41,6 +42,7 @@ export default function RootLayout({
 						<QueryProvider>
 							<Header mode={IHeaderModes.main} />
 							{children}
+							<Footer />
 						</QueryProvider>
 					</StoreProvider>
 				</StyledComponentsRegistry>

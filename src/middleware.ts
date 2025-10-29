@@ -16,9 +16,9 @@ export function middleware(req: NextRequest) {
 	const path = req.nextUrl.pathname
 	const isPublicPath = isPublic(path)
 
-	if (!isPublicPath && isNot(token)) {
-		return NextResponse.redirect(new URL('/login', req.url))
-	}
+	// if (!isPublicPath && isNot(token)) {
+	// 	return NextResponse.redirect(new URL('/login', req.url))
+	// }
 	return NextResponse.next()
 }
 

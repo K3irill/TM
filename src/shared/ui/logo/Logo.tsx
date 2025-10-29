@@ -1,10 +1,13 @@
 import React from 'react'
 import { LogoStyled } from './styled'
+import Link from 'next/link'
 
 function Logo() {
 	return (
 		<LogoStyled className='text-4xl font-extrabold font-(family-name:--font-nabla) cursor-pointer'>
-			<img src='/logo-1.svg' alt='' />
+			<Link href='/'>
+				<img src='/logo/logo-1.svg' alt='' />
+			</Link>
 		</LogoStyled>
 	)
 }
