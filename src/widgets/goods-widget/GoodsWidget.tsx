@@ -7,16 +7,22 @@ import { PRODUCTS } from './content'
 import { Category, TSort, Product } from './model/types'
 
 export default function GoodsWidget() {
-	const query = window.location.search && window.location.search.slice(1)
-	const [filter, setFilter] = useState<Category | 'all'>(
-		(query as Category) || 'all'
-	)
+	const [filter, setFilter] = useState<Category | 'all'>('all')
 	const [sort, setSort] = useState<TSort>('newest')
 	const [page, setPage] = useState(1)
+	const [isClient, setIsClient] = useState(false)
 	const perPage = 8
 
 	useEffect(() => {
-		setFilter(window.location.search.slice(1) as Category)
+		setIsClient(true)
+
+		// Получаем query только на клиенте
+		if (typeof window !== 'undefined') {
+			const query = window.location.search && window.location.search.slice(1)
+			if (query) {
+				setFilter(query as Category)
+			}
+		}
 	}, [])
 
 	const sortedAndFiltered = useMemo(() => {
@@ -45,6 +51,7 @@ export default function GoodsWidget() {
 	}, [filter, sort])
 
 	const totalPages = Math.max(1, Math.ceil(sortedAndFiltered.length / perPage))
+
 	useEffect(() => {
 		if (page > totalPages) setPage(1)
 	}, [totalPages, page])
@@ -70,6 +77,20 @@ export default function GoodsWidget() {
 		p.oldPrice && p.oldPrice > p.price
 			? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100)
 			: p.salePercent
+
+	// Показываем заглушку на сервере
+	if (!isClient) {
+		return (
+			<S.Wrap>
+				<S.Header>
+					<h1>
+						<span>🛍️</span> Товары <span>TARIMI</span>
+					</h1>
+					<p>Загрузка товаров...</p>
+				</S.Header>
+			</S.Wrap>
+		)
+	}
 
 	return (
 		<S.Wrap
@@ -97,10 +118,14 @@ export default function GoodsWidget() {
 								setFilter(c as Category | 'all')
 								setPage(1)
 
+								// Обновляем URL только на клиенте
 								if (typeof window !== 'undefined') {
 									const url = new URL(window.location.href)
-									url.search = ''
-
+									if (c === 'all') {
+										url.search = ''
+									} else {
+										url.search = c
+									}
 									history.replaceState(null, '', url.toString())
 								}
 							}}
