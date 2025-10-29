@@ -1,7 +1,6 @@
 // app/page.tsx
 'use client'
 import React, { useEffect, useState, useRef } from 'react'
-import styled from 'styled-components'
 import HeroWidget from '@/widgets/home-sections/hero/HeroWidget'
 import About from '@/widgets/home-sections/about/ui/About/About'
 import RamenSets from '@/widgets/home-sections/ramenSets/ui/RamenSets/RamenSets'
@@ -16,22 +15,30 @@ import * as S from './styled'
 export default function HomeWidget() {
 	const prefersReduced = useReducedMotion()
 	const containerRef = useRef<HTMLDivElement>(null)
-	const [width, setWidth] = useState<number>(window.innerWidth)
-	function handleWindowSizeChange() {
-		setWidth(window.innerWidth)
-	}
+	const [width, setWidth] = useState<number>(0)
+	const [isClient, setIsClient] = useState(false)
+
+	// Инициализация только на клиенте
 	useEffect(() => {
+		setIsClient(true)
+		setWidth(window.innerWidth)
+
+		function handleWindowSizeChange() {
+			setWidth(window.innerWidth)
+		}
+
 		window.addEventListener('resize', handleWindowSizeChange)
 		return () => {
 			window.removeEventListener('resize', handleWindowSizeChange)
 		}
 	}, [])
-	const isTablet = width <= 1023
-	const isMobile = width <= 768
 
+	const isTablet = width <= 1023
+
+	// Эффект для обработки прокрутки
 	useEffect(() => {
 		const cont = containerRef.current
-		if (!cont || isTablet) return
+		if (!cont || isTablet || !isClient) return
 
 		const onWheel = (e: WheelEvent) => {
 			const atTop = cont.scrollTop <= 0
@@ -79,7 +86,25 @@ export default function HomeWidget() {
 			cont.removeEventListener('touchstart', onTouchStart)
 			cont.removeEventListener('touchmove', onTouchMove)
 		}
-	}, [])
+	}, [isTablet, isClient])
+
+	if (!isClient) {
+		return (
+			<S.SnapContainer ref={containerRef}>
+				<div
+					style={{
+						height: '100vh',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						fontSize: '18px',
+					}}
+				>
+					Загрузка...
+				</div>
+			</S.SnapContainer>
+		)
+	}
 
 	return (
 		<S.SnapContainer ref={containerRef}>
@@ -99,13 +124,9 @@ export default function HomeWidget() {
 				<Philosophy />
 			</S.Section>
 
-			{/* <Section id='comingNext'>
-				<ComingNext />
-			</Section> */}
-
 			<SectionDots
 				containerRef={containerRef}
-				sections={['hero', 'sets', 'about', 'philosophy' /*'comingNext'*/]}
+				sections={['hero', 'sets', 'about', 'philosophy']}
 			/>
 
 			<FooterRevealButton containerRef={containerRef} />
@@ -128,7 +149,7 @@ export default function HomeWidget() {
 
 					if (nextSection) {
 						cont.scrollTo({ top: nextSection.offsetTop, behavior: 'smooth' })
-					} else {
+					} else if (isClient) {
 						window.scrollTo({
 							top: document.body.scrollHeight,
 							behavior: 'smooth',
