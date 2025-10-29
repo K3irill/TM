@@ -77,7 +77,7 @@ const PRODUCTS: Product[] = [
 	},
 	{
 		id: 3,
-		slug: 'cheese-box',
+		slug: 'cheesy-box',
 		name: 'TARIMI Cheese Box',
 		price: 779,
 		images: ['/images/ramens/cheesy.png'],
@@ -112,7 +112,7 @@ export default function ProductPage() {
 		return (
 			<Empty>
 				<h2>Товар не найден</h2>
-				<Link href='/sets'>← вернуться к наборам</Link>
+				<Link href='/goods'>← вернуться к товарам</Link>
 			</Empty>
 		)
 	}
