@@ -1,14 +1,14 @@
 import { motion } from 'motion/react'
 import styled, { keyframes } from 'styled-components'
 
-export const Wrap = styled(motion.main)`
+export const Wrap = styled(motion.div)`
 	padding: 11rem 20px 80px;
 	min-height: 100dvh;
 	color: #fff;
 	max-width: 1300px;
 	margin: 0 auto;
 `
-export const Header = styled.header`
+export const Header = styled.div`
 	text-align: center;
 	margin-bottom: 40px;
 	h1 {

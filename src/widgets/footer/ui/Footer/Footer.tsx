@@ -154,8 +154,6 @@ export default function Footer() {
 						</li>
 					</S.ContactList>
 					<S.StoreBtns>
-						{' '}
-						.ssh/id_ed25519_tarimi
 						<WbButton
 							as={motion.a}
 							href='https://www.wildberries.ru/seller/000000'
@@ -165,11 +163,6 @@ export default function Footer() {
 							whileHover={{ scale: 1.18, rotate: 1 }}
 							whileTap={{ scale: 0.96 }}
 							animate={{
-								boxShadow: [
-									'0 0 10px rgba(255,79,182,0.4), 0 0 30px rgba(200, 0, 255, 0.3)',
-									'0 0 15px rgba(255,79,182,0.7), 0 0 50px rgba(128, 0, 255, 0.5)',
-									'0 0 10px rgba(255,79,182,0.4), 0 0 30px rgba(225, 0, 255, 0.3)',
-								],
 								scale: [1, 1.03, 1],
 							}}
 							transition={{
@@ -190,11 +183,6 @@ export default function Footer() {
 							whileHover={{ scale: 1.18, rotate: 1 }}
 							whileTap={{ scale: 0.96 }}
 							animate={{
-								boxShadow: [
-									'0 0 10px #0059ff72, 0 0 30p#002fff94ff',
-									'0 0 15px #de117b84, 0 0 50px #de117b86',
-									'0 0 10px #0059ff87, 0 0 30p#0037ff8bff',
-								],
 								scale: [1, 1.03, 1],
 							}}
 							transition={{

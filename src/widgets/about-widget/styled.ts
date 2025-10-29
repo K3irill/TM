@@ -2,9 +2,10 @@ import { motion } from 'motion/react'
 import styled from 'styled-components'
 
 export const Wrapper = styled(motion.div)`
-	max-width: 1200px;
+	max-width: 1300px;
 	margin: 0 auto;
-	padding: 10rem 20px;
+	padding: 11rem 20px;
+	overflow-x: hidden;
 	color: #fff;
 	font-family: 'Geologica';
 `
