@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
+		"build:ignore-ts": "NEXT_IGNORE_TYPESCRIPT_ERRORS=true next build",
 		"start": "next start",
 		"lint": "eslint"
 	},
