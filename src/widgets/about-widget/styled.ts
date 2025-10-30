@@ -115,12 +115,17 @@ export const Future = styled.section`
 		color: rgba(255, 255, 255, 0.75);
 		line-height: 1.6;
 	}
-	button {
+	a {
+		display: flex;
+		width: fit-content;
+		align-items: center;
+		gap: 10px;
+		margin: 0 auto;
 		padding: 0.9rem 1.6rem;
 		border-radius: 12px;
 		border: none;
 		background: linear-gradient(90deg, #ff4fb6, #00e0ff);
-		color: #0c0c0c;
+		color: white;
 		font-weight: 700;
 		cursor: pointer;
 		box-shadow: 0 0 20px rgba(255, 79, 182, 0.4);

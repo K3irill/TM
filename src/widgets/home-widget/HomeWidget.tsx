@@ -11,6 +11,7 @@ import { motion, useReducedMotion } from 'motion/react'
 import Philosophy from '@/widgets/home-sections/philosophy/Philosophy'
 
 import * as S from './styled'
+import RamenLoader from '@/shared/ui/WaveLoader/WaveLoader'
 
 export default function HomeWidget() {
 	const prefersReduced = useReducedMotion()
@@ -18,7 +19,6 @@ export default function HomeWidget() {
 	const [width, setWidth] = useState<number>(0)
 	const [isClient, setIsClient] = useState(false)
 
-	// Инициализация только на клиенте
 	useEffect(() => {
 		setIsClient(true)
 		setWidth(window.innerWidth)
@@ -100,7 +100,7 @@ export default function HomeWidget() {
 						fontSize: '18px',
 					}}
 				>
-					Загрузка...
+					<RamenLoader />
 				</div>
 			</S.SnapContainer>
 		)

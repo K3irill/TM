@@ -3,6 +3,7 @@
 import React from 'react'
 import * as S from './styled'
 import { motion } from 'framer-motion'
+import { FaTelegramPlane } from 'react-icons/fa'
 
 export default function AboutWidget() {
 	return (
@@ -103,13 +104,20 @@ export default function AboutWidget() {
 					Совсем скоро — новые коллекции, лимитированные боксы, мерч и много
 					коллабораций. Мы растём, и ты можешь быть частью этого пути 💫
 				</p>
-				<motion.button
+				<motion.a
+					href='https://t.me/tarimi_official'
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
 				>
-					Присоединиться к TARIMI
-				</motion.button>
+					<span>
+						<FaTelegramPlane />
+					</span>{' '}
+					<span>Присоединяйтесь в Телеграм TARIMI</span>
+					<span>
+						<FaTelegramPlane />
+					</span>{' '}
+				</motion.a>
 			</S.Future>
 		</S.Wrapper>
 	)

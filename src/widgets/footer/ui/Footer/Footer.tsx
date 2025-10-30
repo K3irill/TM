@@ -53,7 +53,7 @@ export default function Footer() {
 
 					<S.Socials aria-label='Наши соцсети'>
 						<a
-							href='https://t.me/'
+							href='https://t.me/tarimi_official'
 							target='_blank'
 							rel='noreferrer'
 							aria-label='Telegram'
@@ -61,7 +61,7 @@ export default function Footer() {
 							<FaTelegramPlane />
 						</a>
 						<a
-							href='https://instagram.com/'
+							href='https://www.instagram.com/tarimi.official/'
 							target='_blank'
 							rel='noreferrer'
 							aria-label='Instagram'
@@ -69,7 +69,7 @@ export default function Footer() {
 							<FaInstagram />
 						</a>
 						<a
-							href='https://tiktok.com/'
+							href='https://www.tiktok.com/@tarimi.official'
 							target='_blank'
 							rel='noreferrer'
 							aria-label='TikTok'
@@ -77,7 +77,7 @@ export default function Footer() {
 							<FaTiktok />
 						</a>
 						<a
-							href='https://youtube.com/'
+							href='https://youtube.com/@tarimi.official?si=GHULU2lx7nP73v5z'
 							target='_blank'
 							rel='noreferrer'
 							aria-label='YouTube'
@@ -156,7 +156,7 @@ export default function Footer() {
 					<S.StoreBtns>
 						<WbButton
 							as={motion.a}
-							href='https://www.wildberries.ru/seller/000000'
+							href='https://www.wildberries.ru/'
 							target='_blank'
 							rel='noreferrer'
 							title='Наш магазин на Wildberries'
@@ -176,7 +176,7 @@ export default function Footer() {
 						</WbButton>
 						<OzonBtn
 							as={motion.a}
-							href='https://www.ozon.ru/seller/000000'
+							href='https://www.ozon.ru/'
 							target='_blank'
 							rel='noreferrer'
 							title='Наш магазин на Ozon'

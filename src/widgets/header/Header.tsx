@@ -34,25 +34,29 @@ export default function Header({ mode }: { mode: IHeaderModes }) {
 						</S.NavCenter>
 
 						<S.Socials>
-							<a href='https://t.me/' target='_blank' rel='noopener noreferrer'>
+							<a
+								href='https://t.me/tarimi_official'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
 								<FaTelegramPlane />
 							</a>
 							<a
-								href='https://instagram.com/'
+								href='https://www.instagram.com/tarimi.official/'
 								target='_blank'
 								rel='noopener noreferrer'
 							>
 								<FaInstagram />
 							</a>
 							<a
-								href='https://tiktok.com/'
+								href='https://www.tiktok.com/@tarimi.official'
 								target='_blank'
 								rel='noopener noreferrer'
 							>
 								<FaTiktok />
 							</a>
 							<a
-								href='https://youtube.com/'
+								href='https://youtube.com/@tarimi.official?si=GHULU2lx7nP73v5z'
 								target='_blank'
 								rel='noopener noreferrer'
 							>
