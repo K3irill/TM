@@ -40,13 +40,13 @@ export const PRODUCTS: Product[] = [
 
 	{
 		id: 4,
-		slug: 'k-pop-figure',
-		name: 'K-Pop Figure',
-		img: '/images/figure.jpg',
+		slug: 'anime-girl-figure',
+		name: 'Anime Girl Figure',
+		img: '/images/goods/anime.webp',
 		category: 'figures',
 		price: 1299,
 		oldPrice: 1499,
-		desc: 'Мини-фигурка героя дорамы — собери коллекцию ✨',
+		desc: 'Мини-фигурка аниме девочки — собери коллекцию 😽',
 		salePercent: 13,
 		outOfStock: true,
 		dateAdded: '2025-10-05',
