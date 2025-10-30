@@ -139,8 +139,10 @@ export default function HeroWidget({ onScrollNext }: Props) {
 						</Description>
 
 						<ButtonGroup>
-							<Button variant='pink'>Где Купить</Button>
-							<Button onClick={() => router.push('/goods')} variant='blue'>
+							<Button onClick={() => router.push('/goods')} variant='pink'>
+								Вкусности
+							</Button>
+							<Button onClick={() => router.push('/goods?sets')} variant='blue'>
 								Посмотреть Наборы
 							</Button>
 						</ButtonGroup>
