@@ -5,8 +5,10 @@ import Link from 'next/link'
 import * as S from './styled'
 import { PRODUCTS } from './content'
 import { Category, TSort, Product } from './model/types'
+import { useRouter } from 'next/navigation'
 
 export default function GoodsWidget() {
+	const router = useRouter()
 	const [filter, setFilter] = useState<Category | 'all'>('all')
 	const [sort, setSort] = useState<TSort>('newest')
 	const [page, setPage] = useState(1)
@@ -165,6 +167,7 @@ export default function GoodsWidget() {
 
 							return (
 								<S.Card
+									onClick={() => router.push(`/goods/${p.slug ?? p.id}`)}
 									key={p.id}
 									whileHover={{ scale: isDim ? 1.0 : 1.02 }}
 									data-state={
