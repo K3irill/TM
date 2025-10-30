@@ -106,6 +106,9 @@ export default function AboutWidget() {
 				</p>
 				<motion.a
 					href='https://t.me/tarimi_official'
+					target='_blank'
+					rel='noreferrer'
+					aria-label='Telegram'
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
