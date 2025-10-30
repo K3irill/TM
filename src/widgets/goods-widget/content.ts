@@ -27,7 +27,7 @@ export const PRODUCTS: Product[] = [
 	},
 	{
 		id: 3,
-		slug: 'cheese-box',
+		slug: 'cheesy-box',
 		name: 'TARIMI Cheesy Box',
 		img: '/images/ramens/cheesy.png',
 		category: 'sets',
