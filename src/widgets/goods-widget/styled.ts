@@ -54,8 +54,8 @@ export const Filters = styled.div`
 		box-shadow: 0 0 14px rgba(0, 224, 255, 0.25);
 	}
 	select {
-		background: rgba(255, 255, 255, 0.06);
-		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(255, 255, 255, 0.126);
+		border: 1px solid rgba(32, 32, 32, 0.831);
 		color: #fff;
 		border-radius: 10px;
 		padding: 0.6rem 1rem;
@@ -63,6 +63,13 @@ export const Filters = styled.div`
 		option {
 			background: #2a2929;
 			color: #fff;
+		}
+	}
+
+	@media (max-width: 767px) {
+		button {
+			padding: 0.4rem 0.6rem;
+			font-size: 0.9rem;
 		}
 	}
 `
@@ -78,6 +85,11 @@ export const Grid = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 	gap: 26px;
+
+	@media (max-width: 767px) {
+		gap: 5px;
+		grid-template-columns: repeat(2, 1fr);
+	}
 `
 
 export const Card = styled(motion.div)`
@@ -85,8 +97,8 @@ export const Card = styled(motion.div)`
 	background: rgba(255, 255, 255, 0.03);
 	border: 1px solid rgba(255, 255, 255, 0.08);
 	border-radius: 20px;
-	padding: 16px;
-	text-align: center;
+
+	text-align: start;
 	overflow: hidden;
 
 	/* тускнение для "скоро/нет" */
@@ -103,6 +115,23 @@ export const Card = styled(motion.div)`
 		color: rgba(255, 255, 255, 0.7);
 		font-size: 0.9rem;
 		min-height: 40px;
+	}
+
+	@media (max-width: 767px) {
+		h3 {
+			margin: 6px 0 4px;
+		}
+	}
+`
+
+export const Content = styled.div`
+	padding: 16px;
+
+	display: flex;
+	flex-direction: column;
+
+	@media (max-width: 767px) {
+		padding: 6px 8px;
 	}
 `
 
@@ -204,7 +233,7 @@ export const DimBadge = styled.div`
 export const PriceRow = styled.div`
 	margin: 8px 0 12px;
 	display: flex;
-	justify-content: center;
+	justify-content: start;
 	align-items: center;
 	gap: 10px;
 	.left {
@@ -221,6 +250,7 @@ export const PriceRow = styled.div`
 			text-shadow: 0 0 12px rgba(0, 224, 255, 0.15);
 		}
 		s {
+			white-space: nowrap;
 			position: relative;
 			color: rgba(255, 255, 255, 0.55);
 		}
@@ -234,6 +264,18 @@ export const PriceRow = styled.div`
 			background: grey;
 			transform: translateY(-50%) skewY(-4deg);
 			opacity: 0.6;
+		}
+	}
+	@media (max-width: 767px) {
+		margin: 4px 0 6px;
+		.left {
+			strong {
+				font-size: 1rem;
+				white-space: nowrap;
+			}
+			s {
+				font-size: 0.8rem;
+			}
 		}
 	}
 `
@@ -250,7 +292,8 @@ export const SaveTag = styled.span`
 
 export const BtnRow = styled.div`
 	display: flex;
-	justify-content: center;
+	margin-top: 10px;
+	justify-content: start;
 	a[aria-disabled='true'] {
 		pointer-events: none;
 	}
@@ -271,6 +314,13 @@ export const BtnRow = styled.div`
 	}
 	button:hover {
 		filter: drop-shadow(0 0 10px #0091ff80);
+	}
+
+	@media (max-width: 767px) {
+		button {
+			font-size: 0.8rem;
+			padding: 0.6rem 0.8rem;
+		}
 	}
 `
 

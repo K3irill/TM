@@ -184,38 +184,34 @@ export default function GoodsWidget() {
 											</S.DimBadge>
 										)}
 									</S.ImgWrap>
+									<S.Content>
+										<S.PriceRow>
+											<div className='left'>
+												<strong>{p.price} ₽</strong>
+												{p.oldPrice && <s>{p.oldPrice} ₽</s>}
+											</div>
+											{pct ? <S.SaveTag>-{pct}%</S.SaveTag> : null}
+										</S.PriceRow>
+										<h3>{p.name}</h3>
+										<p>{p.desc}</p>
 
-									<h3>{p.name}</h3>
-									<p>{p.desc}</p>
-
-									<S.PriceRow>
-										<div className='left'>
-											<strong>{p.price} ₽</strong>
-											{p.oldPrice && <s>{p.oldPrice} ₽</s>}
-										</div>
-										{pct ? <S.SaveTag>-{pct}%</S.SaveTag> : null}
-									</S.PriceRow>
-
-									<S.BtnRow>
-										<Link
-											href={isDim ? '#' : `/goods/${p.slug ?? p.id}`}
-											aria-disabled={isDim}
-											onClick={e => {
-												if (isDim) e.preventDefault()
-											}}
-										>
-											<motion.button
-												whileTap={{ scale: isDim ? 1.0 : 0.95 }}
-												disabled={isDim}
+										<S.BtnRow>
+											<Link
+												href={`/goods/${p.slug ?? p.id}`}
+												onClick={e => {
+													if (isDim) e.preventDefault()
+												}}
 											>
-												{p.outOfStock
-													? 'Сообщить о наличии'
-													: p.comingSoon
-													? 'Скоро'
-													: 'Подробнее'}
-											</motion.button>
-										</Link>
-									</S.BtnRow>
+												<motion.button whileTap={{ scale: isDim ? 1.0 : 0.95 }}>
+													{p.outOfStock
+														? 'Сообщить о наличии'
+														: p.comingSoon
+														? 'Скоро'
+														: 'Подробнее'}
+												</motion.button>
+											</Link>
+										</S.BtnRow>
+									</S.Content>
 								</S.Card>
 							)
 					  })
