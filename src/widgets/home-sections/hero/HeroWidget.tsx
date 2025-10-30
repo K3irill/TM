@@ -103,7 +103,7 @@ export default function HeroWidget({ onScrollNext }: Props) {
 				preload='metadata'
 				poster='./back-7.jpg'
 			>
-				<source src='/videos/back-3.mp4' type='video/mp4' />
+				<source src='/videos/back.mp4' type='video/mp4' />
 				Ваш браузер не поддерживает воспроизведение видео.
 			</BackgroundVideo>
 
