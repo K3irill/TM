@@ -88,12 +88,13 @@ export default function HomeWidget() {
 		}
 	}, [isTablet, isClient])
 
-	if (!isClient) {
+	if (isClient) {
 		return (
 			<S.SnapContainer ref={containerRef}>
 				<div
 					style={{
 						height: '100vh',
+						width: '100dvw',
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'center',
