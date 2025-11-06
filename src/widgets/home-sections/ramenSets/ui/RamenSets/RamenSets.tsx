@@ -27,7 +27,7 @@ const sets = [
 		id: 2,
 		name: 'TARIMI Dorama Box',
 		link: '/goods/dorama-box',
-		img: '/images/ramens/dorama.png',
+		img: '/images/ramens/dorama/home.png',
 
 		desc: 'Три любимых вкуса, акцент на мягкую остроту, палочки и приятные мелочи. Seoul-вечер дома — легко и красиво. 💞',
 		top_label: [{ text: 'Хит', tone: 'hot' }],

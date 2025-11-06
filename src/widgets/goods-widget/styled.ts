@@ -151,15 +151,15 @@ export const ImgWrap = styled.div`
 	z-index: 1;
 	img {
 		width: 100%;
-		height: 180px;
+		height: 420px;
 		object-fit: contain;
 	}
 `
 
 export const Ribbon = styled.div`
 	position: absolute;
-	top: 4px;
-	left: -54px;
+	top: 8px;
+	left: -24px;
 	min-width: 220px;
 	transform: rotate(-25deg);
 	padding: 6px 56px;
