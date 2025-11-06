@@ -88,7 +88,7 @@ export default function HomeWidget() {
 		}
 	}, [isTablet, isClient])
 
-	if (isClient) {
+	if (!isClient) {
 		return (
 			<S.SnapContainer ref={containerRef}>
 				<div
