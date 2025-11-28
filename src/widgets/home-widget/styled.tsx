@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const SnapContainer = styled.div`
+	background: #05060a;
+
 	@media (min-width: 1024px) {
 		height: 100dvh;
 		overflow-y: auto;
