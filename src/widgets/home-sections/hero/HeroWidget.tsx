@@ -125,19 +125,16 @@ export default function HeroWidget({ onScrollNext }: Props) {
 						>
 							<Icon $isLampOn={isLampOn}>🏮</Icon>
 						</motion.div>
-
 						<Title>
 							<span>타리미</span>
 							<span>TARIMI</span>
 							<span>Азиатский вечер дома 🍜</span>
 						</Title>
-
 						<Description>
 							Рамены, снеки и наборы вдохновленные К-вайбом.
 							<br />
 							Ощутите вкус и душу Азии.
 						</Description>
-
 						<ButtonGroup>
 							<Button onClick={() => router.push('/goods')} variant='pink'>
 								Вкусности

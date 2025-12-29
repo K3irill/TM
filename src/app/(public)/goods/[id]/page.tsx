@@ -55,7 +55,7 @@ const PRODUCTS: Product[] = [
 		ingredients:
 			'Состав зависит от конкретного рамена и снеков. Возможны следы глютена, сои, кунжута.',
 		shipping: 'Доставка в ПВЗ Wildberries',
-		wbUrl: 'https://www.wildberries.ru/catalog/723557056',
+		wbUrl: 'https://www.wildberries.ru/catalog/723557056/detail.aspx',
 		ozonUrl: null,
 	},
 	{
@@ -81,7 +81,7 @@ const PRODUCTS: Product[] = [
 		ingredients:
 			'Состав зависит от конкретного рамена и снеков. Возможны следы глютена, сои, кунжута.',
 		shipping: 'Доставка в ПВЗ Wildberries',
-		wbUrl: 'https://www.wildberries.ru/catalog/725849598',
+		wbUrl: 'https://www.wildberries.ru/catalog/725849598/detail.aspx',
 		ozonUrl: null,
 	},
 	{
@@ -107,7 +107,7 @@ const PRODUCTS: Product[] = [
 		ingredients:
 			'Состав зависит от конкретного рамена и снеков. Возможны следы глютена, сои, кунжута.',
 		shipping: 'Доставка в ПВЗ Wildberries',
-		wbUrl: 'https://www.wildberries.ru/catalog/725855609',
+		wbUrl: 'https://www.wildberries.ru/catalog/725855609/detail.aspx',
 		ozonUrl: null,
 	},
 	{
@@ -133,7 +133,7 @@ const PRODUCTS: Product[] = [
 		ingredients:
 			'Состав зависит от конкретного рамена и снеков. Возможны следы глютена, сои, кунжута.',
 		shipping: 'Доставка в ПВЗ Wildberries',
-		wbUrl: 'https://www.wildberries.ru/catalog/725788297',
+		wbUrl: 'https://www.wildberries.ru/catalog/725788297/detail.aspx',
 		ozonUrl: null,
 	},
 	{
@@ -159,7 +159,7 @@ const PRODUCTS: Product[] = [
 		ingredients:
 			'Состав зависит от конкретного рамена и снеков. Возможны следы глютена, сои, кунжута.',
 		shipping: 'Доставка в ПВЗ Wildberries',
-		wbUrl: 'https://www.wildberries.ru/catalog/725826752',
+		wbUrl: 'https://www.wildberries.ru/catalog/725826752/detail.aspx',
 		ozonUrl: null,
 	},
 ]

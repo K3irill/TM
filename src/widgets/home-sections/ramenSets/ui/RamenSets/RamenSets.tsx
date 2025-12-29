@@ -20,6 +20,7 @@ const sets = [
 		img: '/images/ramens/dorama-mini-1/dorama-mini-1-1.png',
 
 		desc: 'Три любимых вкуса с мягкой остротой, палочки, соус, нори и сладости. 💞',
+		wbUrl: 'https://www.wildberries.ru/catalog/725849598/detail.aspx',
 		// top_label: [{ text: 'Хит', tone: 'hot' }],
 		// labels: [{ text: '-30%', tone: 'sale' }] as Label[],
 	},
@@ -32,6 +33,7 @@ const sets = [
 		// top_label: [{ text: 'Новинка', tone: 'new' }] as Label[],
 		top_label: [{ text: 'Хит', tone: 'hot' }],
 		labels: null,
+		wbUrl: 'https://www.wildberries.ru/catalog/723557056/detail.aspx',
 	},
 	{
 		id: 3,
@@ -42,6 +44,7 @@ const sets = [
 		// top_label: [{ text: 'Новинка', tone: 'new' }] as Label[],
 		top_label: [],
 		labels: null,
+		wbUrl: 'https://www.wildberries.ru/catalog/725788297/detail.aspx',
 	},
 	// {
 	// 	id: 3,
@@ -144,9 +147,11 @@ export default function RamenSets() {
 
 							<S.BtnRow>
 								<S.BtnRowTop>
-									<WbButton>
-										Купить на <WBIcon />
-									</WbButton>
+									<a href={set.wbUrl} target='_blank' rel='nofollow'>
+										<WbButton>
+											Купить на <WBIcon />
+										</WbButton>
+									</a>
 									<Link href={`${set.link}`}>
 										<motion.button
 											whileHover={{
