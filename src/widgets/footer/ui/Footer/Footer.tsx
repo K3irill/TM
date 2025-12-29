@@ -42,8 +42,8 @@ export default function Footer() {
 					</S.BrandRow>
 					<S.Text>
 						<p>
-							Мы вдохновляемся культурой Кореи и переносим её в твой дом: от
-							любимых вкусов до уютных деталей.
+							Мы вдохновляемся культурой Кореи и Азии в целом, переносим её в
+							твой дом: от любимых вкусов до уютных деталей.
 						</p>
 						<p>
 							Рамены, снеки, напитки и многое другое — всё, чтобы почувствовать
@@ -52,15 +52,23 @@ export default function Footer() {
 					</S.Text>
 
 					<S.Socials aria-label='Наши соцсети'>
-						<a
+						<motion.a
 							href='https://t.me/tarimi_official'
 							target='_blank'
 							rel='noreferrer'
 							aria-label='Telegram'
+							animate={{
+								scale: [1, 1.03, 1],
+							}}
+							transition={{
+								duration: 4,
+								repeat: Infinity,
+								ease: 'easeInOut',
+							}}
 						>
-							<FaTelegramPlane />
-						</a>
-						<a
+							Телеграм блог: <FaTelegramPlane />
+						</motion.a>
+						{/* <a
 							href='https://www.instagram.com/tarimi.official/'
 							target='_blank'
 							rel='noreferrer'
@@ -83,7 +91,7 @@ export default function Footer() {
 							aria-label='YouTube'
 						>
 							<FaYoutube />
-						</a>
+						</a> */}
 					</S.Socials>
 				</S.Col>
 
@@ -123,11 +131,11 @@ export default function Footer() {
 				<S.Col>
 					<S.ColTitle>Помощь</S.ColTitle>
 					<S.LinkList>
-						<li>
+						{/* <li>
 							<Link href='/faq'>FAQ</Link>
-						</li>
+						</li> */}
 						<li>
-							<Link href='/contact'>Связаться с нами</Link>
+							<Link href='https://t.me/tarimiFounder'>Связаться с нами</Link>
 						</li>
 					</S.LinkList>
 				</S.Col>
@@ -156,7 +164,7 @@ export default function Footer() {
 					<S.StoreBtns>
 						<WbButton
 							as={motion.a}
-							href='https://www.wildberries.ru/'
+							href='https://www.wildberries.ru/brands/312270944-tarimi'
 							target='_blank'
 							rel='noreferrer'
 							title='Наш магазин на Wildberries'
@@ -174,7 +182,7 @@ export default function Footer() {
 							<WBIcon />
 							<span>Мы на Wildberries</span>
 						</WbButton>
-						<OzonBtn
+						{/* <OzonBtn
 							as={motion.a}
 							href='https://www.ozon.ru/'
 							target='_blank'
@@ -193,7 +201,7 @@ export default function Footer() {
 						>
 							<OzonIcon />
 							<span>Мы на Ozon</span>
-						</OzonBtn>
+						</OzonBtn> */}
 					</S.StoreBtns>
 				</S.Col>
 

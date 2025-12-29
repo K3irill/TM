@@ -54,6 +54,7 @@ export const AboutContent = styled(motion.div)`
 export const ImageWrapper = styled(motion.div)`
 	flex: 1;
 	max-width: 480px;
+	max-height: 480px;
 	border-radius: 20px;
 	overflow: hidden;
 	box-shadow: 0 0 25px rgba(148, 8, 255, 0.044),

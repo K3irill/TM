@@ -80,12 +80,20 @@ export const Socials = styled.div`
 	gap: 1.25rem;
 
 	a {
-		color: rgba(255, 255, 255, 0.7);
-		font-size: 1.3rem;
+		gap: 10px;
+		display: flex;
+		flex-direction: row;
+		color: #00e0ff;
+		font-size: 1rem;
+		font-weight: 600;
 		transition: all 0.3s ease;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
+		svg {
+			font-size: 1.5rem;
+		}
 
 		&:hover {
 			color: #00e0ff;

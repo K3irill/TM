@@ -15,34 +15,44 @@ type Label = { text: string; tone: LabelTone }
 const sets = [
 	{
 		id: 1,
-		name: 'TARIMI Spicy Box',
+		name: 'Dorama miniBox',
+		link: '/goods/dorama-minibox-1',
+		img: '/images/ramens/dorama-mini-1/dorama-mini-2-1.png',
+
+		desc: 'Три любимых вкуса с мягкой остротой, палочки, соус, нори и сладости. 💞',
+		// top_label: [{ text: 'Хит', tone: 'hot' }],
+		// labels: [{ text: '-30%', tone: 'sale' }] as Label[],
+	},
+	{
+		id: 2,
+		name: 'Dorama Box',
+		link: '/goods/dorama-box',
+		img: '/images/ramens/dorama/1.png',
+		desc: 'Шесть порций рамена с разной степенью остроты, палочки, соус, нори и сладости. Идеальный уютный вечер с корейским вайбом. 🌸',
+		// top_label: [{ text: 'Новинка', tone: 'new' }] as Label[],
+		top_label: [{ text: 'Хит', tone: 'hot' }],
+		labels: null,
+	},
+	{
+		id: 3,
+		name: 'Spicy Box',
 		link: '/goods/spicy-box',
-		img: '/images/ramens/spicy.png',
-		desc: 'Три порции рамена с разной степенью огня, палочки, соус, кимчи и маленький сюрприз. 🌶️',
+		img: '/images/ramens/spicy/spicy-full-1.png',
+		desc: 'Шесть порций острого рамена, палочки, соус, нори и сладости. Острые ощущения и драйв для настоящих любителей азиатской кухни. 🔥',
 		// top_label: [{ text: 'Новинка', tone: 'new' }] as Label[],
 		top_label: [],
 		labels: null,
 	},
-	{
-		id: 2,
-		name: 'TARIMI Dorama Box',
-		link: '/goods/dorama-box',
-		img: '/images/ramens/dorama/home.png',
-
-		desc: 'Три любимых вкуса, акцент на мягкую остроту, палочки и приятные мелочи. Seoul-вечер дома — легко и красиво. 💞',
-		top_label: [{ text: 'Хит', tone: 'hot' }],
-		// labels: [{ text: '-30%', tone: 'sale' }] as Label[],
-	},
-	{
-		id: 3,
-		name: 'TARIMI Cheese Box',
-		link: '/goods/cheesy-box',
-		img: '/images/ramens/cheesy.png',
-		desc: 'Нежные сливочно-сырные вкусы, чуть пикантности, палочки и маленькая вкусняшка в подарок. 🧀',
-		top_label: [],
-		labels: null,
-		// top_label: [{ text: 'Limited', tone: 'limited' }] as Label[],
-	},
+	// {
+	// 	id: 3,
+	// 	name: 'TARIMI Cheese Box',
+	// 	link: '/goods/cheesy-box',
+	// 	img: '/images/ramens/cheesy.png',
+	// 	desc: 'Нежные сливочно-сырные вкусы, чуть пикантности, палочки и маленькая вкусняшка в подарок. 🧀',
+	// 	top_label: [],
+	// 	labels: null,
+	// 	// top_label: [{ text: 'Limited', tone: 'limited' }] as Label[],
+	// },
 	// {
 	// 	id: 4,
 	// 	name: 'Chill & Chill Box',
@@ -71,9 +81,8 @@ export default function RamenSets() {
 				</div>
 				<div>
 					<p>
-						Собираем уникальные наборы с Корейским вайбом. Набор состоит из
-						рамена и дополнительных приколюшек (палочки, соус, кимчи, стикер,
-						QR-код с рандмомной дорамой)
+						Собираем уникальные наборы с Азиатским вайбом. Набор состоит из
+						рамена и тщательно подобранных допов
 					</p>
 				</div>
 			</S.Header>
@@ -138,11 +147,22 @@ export default function RamenSets() {
 									<WbButton>
 										Купить на <WBIcon />
 									</WbButton>
-									<OzonBtn>
+									<Link href={`${set.link}`}>
+										<motion.button
+											whileHover={{
+												scale: 1.04,
+												boxShadow: '0 0 16px rgba(255,79,182,.6)',
+											}}
+											whileTap={{ scale: 0.96 }}
+										>
+											Подробнее
+										</motion.button>
+									</Link>
+									{/* <OzonBtn>
 										Купить на <OzonIcon />
-									</OzonBtn>
+									</OzonBtn> */}
 								</S.BtnRowTop>
-								<Link href={`${set.link}`}>
+								{/* <Link href={`${set.link}`}>
 									<motion.button
 										whileHover={{
 											scale: 1.04,
@@ -152,7 +172,7 @@ export default function RamenSets() {
 									>
 										Подробнее
 									</motion.button>
-								</Link>
+								</Link> */}
 							</S.BtnRow>
 						</S.Card>
 					)

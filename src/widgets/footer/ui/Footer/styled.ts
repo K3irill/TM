@@ -214,15 +214,25 @@ export const Socials = styled.div`
 	display: flex;
 	gap: 0.9rem;
 	margin-top: 0.9rem;
+
 	a {
-		color: rgba(255, 255, 255, 0.75);
-		font-size: 1.2rem;
+		color: #00e0ff;
+
+		font-weight: 700;
+		font-size: 1rem;
 		transition: transform 0.25s ease, text-shadow 0.25s ease, color 0.25s ease;
+		filter: drop-shadow(0px 0px 5px #29a1dc);
+		gap: 10px;
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		svg {
+			width: 25px;
+		}
 	}
-	a:hover {
-		transform: translateY(-2px);
-		color: #fff;
-		text-shadow: 0 0 8px #ff4fb6, 0 0 14px #00e0ff;
+	&:hover {
+		color: #00e0ff;
+		text-shadow: 0 0 10px #00e0ff;
 	}
 `
 

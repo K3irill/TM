@@ -34,14 +34,23 @@ export default function Header({ mode }: { mode: IHeaderModes }) {
 						</S.NavCenter>
 
 						<S.Socials>
-							<a
+							<motion.a
 								href='https://t.me/tarimi_official'
 								target='_blank'
-								rel='noopener noreferrer'
+								rel='noreferrer'
+								aria-label='Telegram'
+								animate={{
+									scale: [1, 1.03, 1],
+								}}
+								transition={{
+									duration: 4,
+									repeat: Infinity,
+									ease: 'easeInOut',
+								}}
 							>
-								<FaTelegramPlane />
-							</a>
-							<a
+								Телеграм блог: <FaTelegramPlane />
+							</motion.a>
+							{/* <a
 								href='https://www.instagram.com/tarimi.official/'
 								target='_blank'
 								rel='noopener noreferrer'
@@ -61,7 +70,7 @@ export default function Header({ mode }: { mode: IHeaderModes }) {
 								rel='noopener noreferrer'
 							>
 								<FaYoutube />
-							</a>
+							</a> */}
 						</S.Socials>
 					</S.HeaderContent>
 				</Container>
