@@ -17,7 +17,7 @@ const sets = [
 		id: 1,
 		name: 'Dorama miniBox',
 		link: '/goods/dorama-minibox-1',
-		img: '/images/ramens/dorama-mini-1/dorama-mini-2-1.png',
+		img: '/images/ramens/dorama-mini-1/dorama-mini-1-1.png',
 
 		desc: 'Три любимых вкуса с мягкой остротой, палочки, соус, нори и сладости. 💞',
 		// top_label: [{ text: 'Хит', tone: 'hot' }],
