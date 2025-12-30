@@ -97,7 +97,7 @@ export const Card = styled(motion.div)`
 	background: rgba(255, 255, 255, 0.03);
 	border: 1px solid rgba(255, 255, 255, 0.08);
 	border-radius: 20px;
-
+	cursor: pointer;
 	text-align: start;
 	overflow: hidden;
 
@@ -149,9 +149,10 @@ export const Glow = styled.div`
 export const ImgWrap = styled.div`
 	position: relative;
 	z-index: 1;
+
 	img {
 		width: 100%;
-		height: 420px;
+		height: auto;
 		object-fit: contain;
 	}
 `

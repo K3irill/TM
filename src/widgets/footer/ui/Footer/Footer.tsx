@@ -116,14 +116,19 @@ export default function Footer() {
 							<S.DisabledLink soon>Сладости</S.DisabledLink>
 						</li>
 						<li>
-							<S.DisabledLink soon>Фигурки</S.DisabledLink>
-						</li>
-						{/* <li>
-							<S.DisabledLink soon>Мерч</S.DisabledLink>
+							<S.DisabledLink soon>Напитки</S.DisabledLink>
 						</li>
 						<li>
-							<S.DisabledLink soon>Подписка</S.DisabledLink>
-						</li> */}
+							<S.DisabledLink soon>Фигурки</S.DisabledLink>
+						</li>
+						<li>
+							<S.DisabledLink soon>Одежда</S.DisabledLink>
+						</li>
+						{
+							<li>
+								<S.DisabledLink soon>Подписка</S.DisabledLink>
+							</li>
+						}
 					</S.LinkList>
 				</S.Col>
 

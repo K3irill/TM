@@ -7,7 +7,8 @@ import Header from '@/widgets/header/Header'
 import { IHeaderModes } from '@/widgets/header/model/types'
 import StyledComponentsRegistry from '@/shared/ui/StyledComponentsRegistry/StyledComponentsRegistry.tsx'
 import Footer from '@/widgets/footer/ui/Footer/Footer'
-
+import Snowfall from 'react-snowfall'
+import ClientProviders from './providers/ClientProviders'
 const nabla = Nabla({
 	variable: '--font-nabla',
 	subsets: ['latin'],
@@ -124,13 +125,11 @@ export default function RootLayout({
 				className={`${nabla.variable} ${red_rose.variable} ${inter.variable} antialiased`}
 			>
 				<StyledComponentsRegistry>
-					<StoreProvider>
-						<QueryProvider>
-							<Header mode={IHeaderModes.main} />
-							{children}
-							<Footer />
-						</QueryProvider>
-					</StoreProvider>
+					<ClientProviders>
+						<Header mode={IHeaderModes.main} />
+						{children}
+						<Footer />
+					</ClientProviders>
 				</StyledComponentsRegistry>
 			</body>
 		</html>

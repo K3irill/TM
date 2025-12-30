@@ -112,7 +112,19 @@ export default function GoodsWidget() {
 
 			<S.Filters>
 				<div className='cats'>
-					{(['all', 'sets', 'ramen', 'snacks', 'figures'] as const).map(c => (
+					{(
+						[
+							'all',
+							'sets',
+							'ramen',
+							'sweets',
+							'snacks',
+							'drinks',
+							'clothes',
+							'sweet-sets',
+							'figures',
+						] as const
+					).map(c => (
 						<button
 							key={c}
 							data-active={filter === c}
@@ -136,10 +148,18 @@ export default function GoodsWidget() {
 								? 'Все'
 								: c === 'sets'
 								? 'Наборы'
+								: c === 'sweet-sets'
+								? 'Сладкие Наборы'
 								: c === 'ramen'
 								? 'Рамен'
+								: c === 'sweets'
+								? 'Сладости'
 								: c === 'snacks'
 								? 'Снеки'
+								: c === 'clothes'
+								? 'Одежда'
+								: c === 'drinks'
+								? 'Напитки'
 								: 'Фигурки'}
 						</button>
 					))}
