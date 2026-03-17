@@ -1,13 +1,11 @@
-import type { Metadata } from 'next'
-import { Nabla, Inter, Red_Rose } from 'next/font/google'
-import '../styles/base.scss'
-import StoreProvider from './providers/StoreProvider'
-import { QueryProvider } from './providers/QueryProvider'
-import Header from '@/widgets/header/Header'
-import { IHeaderModes } from '@/widgets/header/model/types'
 import StyledComponentsRegistry from '@/shared/ui/StyledComponentsRegistry/StyledComponentsRegistry.tsx'
 import Footer from '@/widgets/footer/ui/Footer/Footer'
-import Snowfall from 'react-snowfall'
+import Header from '@/widgets/header/Header'
+import { IHeaderModes } from '@/widgets/header/model/types'
+import type { Metadata } from 'next'
+import { Inter, Nabla, Red_Rose } from 'next/font/google'
+import '../styles/base.scss'
+
 import ClientProviders from './providers/ClientProviders'
 const nabla = Nabla({
 	variable: '--font-nabla',
@@ -30,8 +28,8 @@ export const metadata: Metadata = {
 			'TARIMI — Корейские наборы еды и снеков с доставкой | на  Wildberries',
 		template: '%s | TARIMI — корейские боксы',
 	},
-	description: `🍜 TARIMI — это готовые азиатские боксы с раменом, нори, сладостями и напитками. 
-	Попробуйте Dorama Box и Spicy Box — для уютного вечера дома или атмосферного подарка. 
+	description: `🍜 TARIMI — это готовые азиатские боксы с раменом, нори, сладостями и напитками.
+	Попробуйте Dorama Box и Spicy Box — для уютного вечера дома или атмосферного подарка.
 	Доставка по всей России, уникальные вкусы из Кореи, Японии, Таиланда и других стран Азии.`,
 
 	keywords: [

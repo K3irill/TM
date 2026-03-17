@@ -1,11 +1,18 @@
 'use client'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useProducts } from '@/shared/services/directus/hooks'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import * as S from './styled'
-import { PRODUCTS } from './content'
-import { Category, TSort, Product } from './model/types'
 import { useRouter } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
+import { Category, Product, TSort } from './model/types'
+import * as S from './styled'
+
+const formatPrice = (value: number) =>
+	new Intl.NumberFormat('ru-RU', {
+		style: 'currency',
+		currency: 'RUB',
+		maximumFractionDigits: 0,
+	}).format(value)
 
 export default function GoodsWidget() {
 	const router = useRouter()
@@ -14,6 +21,12 @@ export default function GoodsWidget() {
 	const [page, setPage] = useState(1)
 	const [isClient, setIsClient] = useState(false)
 	const perPage = 8
+
+	// Получаем товары из Directus
+	const { data: directusProducts = [], isLoading: isLoadingDirectus } = useProducts({
+		category: filter !== 'all' ? filter : undefined,
+		sort: sort === 'price' ? ['price'] : ['-dateAdded'],
+	})
 
 	useEffect(() => {
 		setIsClient(true)
@@ -28,9 +41,12 @@ export default function GoodsWidget() {
 	}, [])
 
 	const sortedAndFiltered = useMemo(() => {
+		// Только Directus данные (без статичного fallback)
+		const productsList = directusProducts
+
 		// 1) фильтруем
 		let list =
-			filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter)
+			filter === 'all' ? productsList : productsList.filter(p => p.category === filter)
 
 		// 2) сортируем
 		if (sort === 'price') {
@@ -50,7 +66,7 @@ export default function GoodsWidget() {
 		}
 
 		return list
-	}, [filter, sort])
+	}, [filter, sort, directusProducts])
 
 	const totalPages = Math.max(1, Math.ceil(sortedAndFiltered.length / perPage))
 
@@ -90,6 +106,92 @@ export default function GoodsWidget() {
 					</h1>
 					<p>Загрузка товаров...</p>
 				</S.Header>
+			</S.Wrap>
+		)
+	}
+
+	// Лоадер, пока тянем данные из Directus (без показа статичных товаров)
+	if (isLoadingDirectus) {
+		return (
+			<S.Wrap>
+				<S.Header>
+					<h1>
+						<span>🛍️</span> Товары <span>TARIMI</span>
+					</h1>
+					<p>Загружаем каталог...</p>
+				</S.Header>
+
+				<S.Grid>
+					{Array.from({ length: 8 }).map((_, idx) => (
+						<S.Card key={`skeleton-${idx}`} style={{ pointerEvents: 'none' }}>
+							<S.Glow />
+							<S.ImgWrap>
+								<div
+									style={{
+										width: '100%',
+										height: 220,
+										borderRadius: 18,
+										background:
+											'linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.08) 100%)',
+										backgroundSize: '200% 100%',
+										animation: 'tarimi-skeleton 1.2s ease-in-out infinite',
+									}}
+								/>
+							</S.ImgWrap>
+							<S.Content>
+								<S.PriceRow>
+									<div className='left'>
+										<div
+											style={{
+												height: 18,
+												width: 120,
+												borderRadius: 10,
+												background:
+													'linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.08) 100%)',
+												backgroundSize: '200% 100%',
+												animation: 'tarimi-skeleton 1.2s ease-in-out infinite',
+											}}
+										/>
+									</div>
+								</S.PriceRow>
+								<div
+									style={{
+										height: 16,
+										width: '70%',
+										borderRadius: 10,
+										margin: '10px 0',
+										background:
+											'linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.08) 100%)',
+										backgroundSize: '200% 100%',
+										animation: 'tarimi-skeleton 1.2s ease-in-out infinite',
+									}}
+								/>
+								<div
+									style={{
+										height: 12,
+										width: '95%',
+										borderRadius: 10,
+										background:
+											'linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.08) 100%)',
+										backgroundSize: '200% 100%',
+										animation: 'tarimi-skeleton 1.2s ease-in-out infinite',
+									}}
+								/>
+							</S.Content>
+						</S.Card>
+					))}
+				</S.Grid>
+
+				<style jsx global>{`
+					@keyframes tarimi-skeleton {
+						0% {
+							background-position: 200% 0;
+						}
+						100% {
+							background-position: -200% 0;
+						}
+					}
+				`}</style>
 			</S.Wrap>
 		)
 	}
@@ -210,8 +312,8 @@ export default function GoodsWidget() {
 									<S.Content>
 										<S.PriceRow>
 											<div className='left'>
-												<strong>{p.price} ₽</strong>
-												{p.oldPrice && <s>{p.oldPrice} ₽</s>}
+												<strong>{formatPrice(p.price)}</strong>
+												{p.oldPrice && <s>{formatPrice(p.oldPrice)}</s>}
 											</div>
 											{pct ? <S.SaveTag>-{pct}%</S.SaveTag> : null}
 										</S.PriceRow>

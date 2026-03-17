@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import { motion } from 'framer-motion'
+import styled from 'styled-components'
 
 export const AboutSection = styled(motion.section)`
 	position: relative;
@@ -8,7 +8,7 @@ export const AboutSection = styled(motion.section)`
 	background: radial-gradient(circle at 30% 20%, #ff4fb622 0%, transparent 60%),
 		radial-gradient(circle at 80% 80%, #00e0ff22 0%, transparent 60%);
 	overflow: hidden;
-	min-height: 100vh 
+	min-height: 100vh;
   height: 100%;
 
 	&::before {
@@ -28,6 +28,10 @@ export const AboutTitle = styled(motion.h2)`
 	color: white;
 	position: relative;
 	z-index: 2;
+
+  p{
+    display: inline;
+  }
 
 	span {
 		font-family: 'Zen_Dots';
@@ -55,17 +59,31 @@ export const ImageWrapper = styled(motion.div)`
 	flex: 1;
 	max-width: 480px;
 	max-height: 480px;
+	width: 100%;
+	height: 480px;
 	border-radius: 20px;
 	overflow: hidden;
 	box-shadow: 0 0 25px rgba(148, 8, 255, 0.044),
 		0 0 50px rgba(0, 225, 255, 0.105);
 
+	/* фиксируем высоту свайпера, чтобы он не "прыгал" */
+	.swiper,
+	.swiper-wrapper,
+	.swiper-slide {
+		width: 100%;
+		height: 100%;
+	}
+
 	img {
 		width: 100%;
 		height: 100%;
-		min-height: 480px;
 		border-radius: 20px;
 		object-fit: cover;
+	}
+
+	@media (max-width: 900px) {
+		max-width: 100%;
+		height: min(480px, 70vw);
 	}
 `
 

@@ -1,8 +1,10 @@
 'use client'
 
-import Snowfall from 'react-snowfall'
-import StoreProvider from './StoreProvider'
+// import Snowfall from 'react-snowfall'
+import FallingSakura from '@/shared/ui/FallingSakura/FallingSakura'
 import { QueryProvider } from './QueryProvider'
+import StoreProvider from './StoreProvider'
+
 
 export default function ClientProviders({
 	children,
@@ -23,7 +25,8 @@ export default function ClientProviders({
 						zIndex: 9999,
 					}}
 				>
-					<Snowfall snowflakeCount={200} />
+          <FallingSakura/>
+					{/* <Snowfall snowflakeCount={200} /> */}
 				</div>
 				{children}
 			</QueryProvider>

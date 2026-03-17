@@ -1,28 +1,25 @@
 'use client'
 
-import React from 'react'
-import { motion, useMotionValue, useTransform } from 'framer-motion'
-import * as S from './styled'
-import Link from 'next/link'
-import WbButton from '@/shared/ui/WbButton/WbButton'
 import WBIcon from '@/shared/icons/WBIcon'
-import OzonBtn from '@/shared/ui/OzonBtn/OzonBtn'
-import OzonIcon from '@/shared/icons/OzonIcon'
+import { useRamenSets } from '@/shared/services/directus/hooks'
+import WbButton from '@/shared/ui/WbButton/WbButton'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import * as S from './styled'
 
 type LabelTone = 'hot' | 'new' | 'sale' | 'limited' | 'mild'
 type Label = { text: string; tone: LabelTone }
 
-const sets = [
+// Статичные наборы — оставляем в коде на будущее, но НЕ используем в UI
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const staticSets = [
 	{
 		id: 1,
 		name: 'Dorama miniBox',
 		link: '/goods/dorama-minibox-1',
 		img: '/images/ramens/dorama-mini-1/dorama-mini-1-1.png',
-
 		desc: 'Три любимых вкуса с мягкой остротой, палочки, соус, нори и сладости. 💞',
 		wbUrl: 'https://www.wildberries.ru/catalog/725849598/detail.aspx',
-		// top_label: [{ text: 'Хит', tone: 'hot' }],
-		// labels: [{ text: '-30%', tone: 'sale' }] as Label[],
 	},
 	{
 		id: 2,
@@ -30,9 +27,8 @@ const sets = [
 		link: '/goods/dorama-box',
 		img: '/images/ramens/dorama/1.png',
 		desc: 'Шесть порций рамена с разной степенью остроты, палочки, соус, нори и сладости. Идеальный уютный вечер с корейским вайбом. 🌸',
-		// top_label: [{ text: 'Новинка', tone: 'new' }] as Label[],
 		top_label: [{ text: 'Хит', tone: 'hot' }],
-		labels: null,
+		labels: null as null | Label[],
 		wbUrl: 'https://www.wildberries.ru/catalog/723557056/detail.aspx',
 	},
 	{
@@ -41,32 +37,15 @@ const sets = [
 		link: '/goods/spicy-box',
 		img: '/images/ramens/spicy/spicy-full-1.png',
 		desc: 'Шесть порций острого рамена, палочки, соус, нори и сладости. Острые ощущения и драйв для настоящих любителей азиатской кухни. 🔥',
-		// top_label: [{ text: 'Новинка', tone: 'new' }] as Label[],
 		top_label: [],
-		labels: null,
+		labels: null as null | Label[],
 		wbUrl: 'https://www.wildberries.ru/catalog/725788297/detail.aspx',
 	},
-	// {
-	// 	id: 3,
-	// 	name: 'TARIMI Cheese Box',
-	// 	link: '/goods/cheesy-box',
-	// 	img: '/images/ramens/cheesy.png',
-	// 	desc: 'Нежные сливочно-сырные вкусы, чуть пикантности, палочки и маленькая вкусняшка в подарок. 🧀',
-	// 	top_label: [],
-	// 	labels: null,
-	// 	// top_label: [{ text: 'Limited', tone: 'limited' }] as Label[],
-	// },
-	// {
-	// 	id: 4,
-	// 	name: 'Chill & Chill Box',
-	// 	img: '/images/ramens/4.jpg',
-	// 	desc: 'Комбо: рамен, напитки и чилл-плейлист 🎧',
-	// 	labels: null,
-	// 	top_label: [{ text: 'Мягкий', tone: 'mild' }] as Label[],
-	// },
 ]
 
 export default function RamenSets() {
+	const { data: sets = [], isLoading } = useRamenSets()
+
 	return (
 		<S.Section
 			initial={{ opacity: 0 }}
@@ -96,7 +75,62 @@ export default function RamenSets() {
 				whileInView={{ opacity: 1, scale: 1 }}
 				transition={{ duration: 0.6 }}
 			>
-				{sets.map(set => {
+				{isLoading
+					? Array.from({ length: 3 }).map((_, idx) => (
+							<S.Card
+								key={`skeleton-${idx}`}
+								style={{ pointerEvents: 'none' }}
+								transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+							>
+								<S.GlowBorder aria-hidden />
+								<div
+									style={{
+										height: 220,
+										borderRadius: 18,
+										background:
+											'linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.08) 100%)',
+										backgroundSize: '200% 100%',
+										animation: 'tarimi-skeleton 1.2s ease-in-out infinite',
+									}}
+								/>
+								<div style={{ padding: '14px 6px 6px' }}>
+									<div
+										style={{
+											height: 16,
+											width: '70%',
+											borderRadius: 10,
+											marginBottom: 10,
+											background:
+												'linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.08) 100%)',
+											backgroundSize: '200% 100%',
+											animation: 'tarimi-skeleton 1.2s ease-in-out infinite',
+										}}
+									/>
+									<div
+										style={{
+											height: 12,
+											width: '95%',
+											borderRadius: 10,
+											background:
+												'linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.08) 100%)',
+											backgroundSize: '200% 100%',
+											animation: 'tarimi-skeleton 1.2s ease-in-out infinite',
+										}}
+									/>
+								</div>
+								<style jsx global>{`
+									@keyframes tarimi-skeleton {
+										0% {
+											background-position: 200% 0;
+										}
+										100% {
+											background-position: -200% 0;
+										}
+									}
+								`}</style>
+							</S.Card>
+					  ))
+					: sets.map(set => {
 					return (
 						<S.Card
 							data-tone={set.top_label?.[0]?.tone}
