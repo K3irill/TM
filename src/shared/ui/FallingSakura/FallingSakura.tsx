@@ -1,138 +1,315 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
+
+type BlowAnim =
+	| 'blow-soft-left'
+	| 'blow-medium-left'
+	| 'blow-hard-left'
+	| 'blow-soft-right'
+	| 'blow-medium-right'
+	| 'blow-hard-right'
+
+type SwayAnim =
+	| 'sway-0'
+	| 'sway-1'
+	| 'sway-2'
+	| 'sway-3'
+	| 'sway-4'
+	| 'sway-5'
+	| 'sway-6'
+	| 'sway-7'
+	| 'sway-8'
+
+const blowAnimations: BlowAnim[] = [
+	'blow-soft-left',
+	'blow-medium-left',
+	'blow-hard-left',
+	'blow-soft-right',
+	'blow-medium-right',
+	'blow-hard-right',
+]
+
+const swayAnimations: SwayAnim[] = [
+	'sway-0',
+	'sway-1',
+	'sway-2',
+	'sway-3',
+	'sway-4',
+	'sway-5',
+	'sway-6',
+	'sway-7',
+	'sway-8',
+]
+
+function getRandomInt(min: number, max: number) {
+	return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function sample<T>(arr: T[]): T {
+	return arr[Math.floor(Math.random() * arr.length)]
+}
 
 const FallingSakura: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationFrameRef = useRef<number>(0);
+	const rootRef = useRef<HTMLDivElement>(null)
+	const timerRef = useRef<number | null>(null)
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+	useEffect(() => {
+		const root = rootRef.current
+		if (!root) return
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+		const reduced =
+			typeof window !== 'undefined' &&
+			window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+		if (reduced) return
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+		const createPetal = () => {
+			const el = document.createElement('div')
+			el.className = 'tarimi-sakura'
 
-    // More petals, but keep it adaptive to screen size to avoid FPS drops
-    const area = (window.innerWidth * window.innerHeight) / (1920 * 1080);
-    const numberOfPetals = Math.max(18, Math.min(60, Math.round(32 * area)));
-    const petals: { x: number; y: number; size: number; color: string; speedX: number; speedY: number; rotation: number; wobble: number; wobbleSpeed: number }[] = [];
+			const size = getRandomInt(9, 14)
+			const startLeft = Math.random() * window.innerWidth - 100
+			const startTop = -getRandomInt(15, 35)
 
-    // Function to generate a random number within a range
-    const random = (min: number, max: number) => Math.random() * (max - min) + min;
+			const blow = sample(blowAnimations)
+			const sway = sample(swayAnimations)
+			const fallTime = (Math.round(window.innerHeight * 0.007) + Math.random() * 5) * 1 // fallSpeed
 
-    // Define leaf colors (Sakura-like colors)
-    const petalColors = ['#FDE8E9', '#F9D7DA', '#F5C6CB', '#F2B5BC'];
+			const blowTime = ((fallTime > 30 ? fallTime : 30) - 20) + getRandomInt(0, 20)
+			const swayTime = getRandomInt(2, 4)
 
-    for (let i = 0; i < numberOfPetals; i++) {
-      petals.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: random(8, 16),
-        color: petalColors[Math.floor(Math.random() * petalColors.length)],
-        speedX: random(-0.3, 0.3), // Even slower horizontal speed
-        speedY: random(0.5, 0.9), // Adjusted vertical speed
-        rotation: random(0, Math.PI * 2),
-        wobble: random(0, Math.PI * 2), // Initial wobble position
-        wobbleSpeed: random(0.02, 0.05), // Wobble speed
-      });
-    }
+			el.style.width = `${size}px`
+			el.style.height = `${size}px`
+			el.style.left = `${startLeft}px`
+			// fall анимируем через `top`, а стартовую позицию — через отрицательный margin-top (как в jQuery версии)
+			el.style.top = `0px`
+			el.style.marginTop = `${startTop}px`
+			el.style.animation = `fall ${fallTime}s linear 0s 1, ${blow} ${blowTime}s linear 0s infinite, ${sway} ${swayTime}s linear 0s infinite`
 
-    // Function to draw a single sakura petal (not heart-shaped)
-    const drawPetal = (petal: { x: number; y: number; size: number; color: string; speedX: number; speedY: number; rotation: number; wobble: number; wobbleSpeed: number }) => {
-      ctx.save();
-      ctx.translate(petal.x, petal.y);
-      ctx.rotate(petal.rotation);
+			const onAnimEnd = (ev: AnimationEvent) => {
+				if (ev.animationName === 'fall') {
+					el.removeEventListener('animationend', onAnimEnd)
+					el.remove()
+				}
+			}
 
-      // Sakura petal: pointed tip + slight notch at the base
-      const s = petal.size;
-      ctx.beginPath();
-      // base notch
-      ctx.moveTo(0, 0);
-      // left base curve
-      ctx.bezierCurveTo(-0.35 * s, 0.05 * s, -0.6 * s, -0.25 * s, -0.55 * s, -0.55 * s);
-      // left shoulder to tip
-      ctx.bezierCurveTo(-0.5 * s, -0.95 * s, -0.2 * s, -1.25 * s, 0, -1.32 * s);
-      // right shoulder from tip
-      ctx.bezierCurveTo(0.2 * s, -1.25 * s, 0.5 * s, -0.95 * s, 0.55 * s, -0.55 * s);
-      // right base curve back to notch
-      ctx.bezierCurveTo(0.6 * s, -0.25 * s, 0.35 * s, 0.05 * s, 0, 0);
-      ctx.closePath();
+			const onIter = (ev: AnimationEvent) => {
+				if (blowAnimations.includes(ev.animationName as BlowAnim)) {
+					el.removeEventListener('animationiteration', onIter)
+					el.removeEventListener('animationend', onAnimEnd)
+					el.remove()
+				}
+			}
 
-      ctx.fillStyle = petal.color;
-      ctx.fill();
+			el.addEventListener('animationend', onAnimEnd)
+			el.addEventListener('animationiteration', onIter)
 
-      // subtle highlight vein
-      ctx.strokeStyle = 'rgba(255,255,255,0.25)';
-      ctx.lineWidth = Math.max(0.8, s * 0.06);
-      ctx.beginPath();
-      ctx.moveTo(0, -0.15 * s);
-      ctx.quadraticCurveTo(0.05 * s, -0.6 * s, 0, -1.15 * s);
-      ctx.stroke();
+			root.appendChild(el)
+		}
 
-      ctx.restore();
-    };
+		// Start rate (newOn). Adaptive so it doesn't explode on huge screens.
+		const area = (window.innerWidth * window.innerHeight) / (1920 * 1080)
+		const newOn = Math.max(120, Math.min(320, Math.round(260 / Math.max(0.7, area))))
 
-    // Function to update a single petal's position and wobble
-    const updatePetal = (petal: { x: number; y: number; size: number; color: string; speedX: number; speedY: number; rotation: number; wobble: number; wobbleSpeed: number }) => {
-      petal.x += petal.speedX + Math.sin(petal.wobble) * 0.2; // Add a subtle wobble
-      petal.y += petal.speedY;
-      petal.rotation += 0.01;
-      petal.wobble += petal.wobbleSpeed; // Update wobble position
+		timerRef.current = window.setInterval(() => {
+			// cap: keep DOM small
+			if (root.childElementCount > 80) return
+			createPetal()
+		}, newOn)
 
-      // If a petal goes out of the screen, wrap it back
-      if (petal.x < -petal.size) petal.x = width + petal.size;
-      if (petal.x > width + petal.size) petal.x = -petal.size;
-      if (petal.y > height + petal.size) petal.y = -petal.size;
-    };
+		return () => {
+			if (timerRef.current != null) window.clearInterval(timerRef.current)
+			timerRef.current = null
+			root.replaceChildren()
+		}
+	}, [])
 
-    // Animation function
-    const animate = () => {
-      ctx.clearRect(0, 0, width, height);
-      petals.forEach(petal => {
-        drawPetal(petal);
-        updatePetal(petal);
-      });
+	return (
+		<div
+			ref={rootRef}
+			aria-hidden
+			style={{
+				position: 'fixed',
+				inset: 0,
+				zIndex: 1000,
+				pointerEvents: 'none',
+				overflow: 'hidden',
+			}}
+		>
+			<style jsx global>{`
+				@keyframes fall {
+					0% {
+						opacity: 0.9;
+						top: 0;
+					}
+					100% {
+						opacity: 0.2;
+						top: 110%;
+					}
+				}
 
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
+				@keyframes blow-soft-left {
+					0% {
+						margin-left: 0;
+					}
+					100% {
+						margin-left: -50%;
+					}
+				}
+				@keyframes blow-medium-left {
+					0% {
+						margin-left: 0;
+					}
+					100% {
+						margin-left: -100%;
+					}
+				}
+				@keyframes blow-hard-left {
+					0% {
+						margin-left: 0;
+					}
+					100% {
+						margin-left: -140%;
+					}
+				}
+				@keyframes blow-soft-right {
+					0% {
+						margin-left: 0;
+					}
+					100% {
+						margin-left: 50%;
+					}
+				}
+				@keyframes blow-medium-right {
+					0% {
+						margin-left: 0;
+					}
+					100% {
+						margin-left: 100%;
+					}
+				}
+				@keyframes blow-hard-right {
+					0% {
+						margin-left: 0;
+					}
+					100% {
+						margin-left: 140%;
+					}
+				}
 
-    animate();
+				@keyframes sway-0 {
+					0% {
+						transform: rotate(-5deg);
+					}
+					40% {
+						transform: rotate(28deg);
+					}
+					100% {
+						transform: rotate(3deg);
+					}
+				}
+				@keyframes sway-1 {
+					0% {
+						transform: rotate(10deg);
+					}
+					40% {
+						transform: rotate(43deg);
+					}
+					100% {
+						transform: rotate(15deg);
+					}
+				}
+				@keyframes sway-2 {
+					0% {
+						transform: rotate(15deg);
+					}
+					40% {
+						transform: rotate(56deg);
+					}
+					100% {
+						transform: rotate(22deg);
+					}
+				}
+				@keyframes sway-3 {
+					0% {
+						transform: rotate(25deg);
+					}
+					40% {
+						transform: rotate(74deg);
+					}
+					100% {
+						transform: rotate(37deg);
+					}
+				}
+				@keyframes sway-4 {
+					0% {
+						transform: rotate(40deg);
+					}
+					40% {
+						transform: rotate(68deg);
+					}
+					100% {
+						transform: rotate(25deg);
+					}
+				}
+				@keyframes sway-5 {
+					0% {
+						transform: rotate(50deg);
+					}
+					40% {
+						transform: rotate(78deg);
+					}
+					100% {
+						transform: rotate(40deg);
+					}
+				}
+				@keyframes sway-6 {
+					0% {
+						transform: rotate(65deg);
+					}
+					40% {
+						transform: rotate(92deg);
+					}
+					100% {
+						transform: rotate(58deg);
+					}
+				}
+				@keyframes sway-7 {
+					0% {
+						transform: rotate(72deg);
+					}
+					40% {
+						transform: rotate(118deg);
+					}
+					100% {
+						transform: rotate(68deg);
+					}
+				}
+				@keyframes sway-8 {
+					0% {
+						transform: rotate(94deg);
+					}
+					40% {
+						transform: rotate(136deg);
+					}
+					100% {
+						transform: rotate(82deg);
+					}
+				}
 
-    // Handle window resize
-    const handleResize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    };
+				.tarimi-sakura {
+					position: absolute;
+					background: linear-gradient(
+						120deg,
+						rgba(255, 183, 197, 0.9),
+						rgba(255, 197, 208, 0.9)
+					);
+					border-radius: 12px 1px;
+					filter: drop-shadow(0 0 6px rgba(255, 79, 182, 0.15));
+					will-change: top, margin-left, transform, opacity;
+					pointer-events: none;
+				}
+			`}</style>
+		</div>
+	)
+}
 
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup function
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameRef.current);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: 1000,
-        pointerEvents: 'none',
-        width: '100vw',
-        height: '100vh',
-      }}
-    />
-  );
-};
-
-export default FallingSakura;
+export default FallingSakura
