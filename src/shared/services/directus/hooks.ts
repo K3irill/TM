@@ -1,7 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { productsApi, ramenSetsApi, aboutBrandApi, whyUsApi } from './api'
-import { getImageUrl, getImageUrls } from './client'
+import { directusClient, getImageUrl, getImageUrls } from './client'
 import type { Product, RamenSet, AboutBrand, WhyUsItem } from './client'
+import { readItems } from '@directus/sdk'
 
 // Хуки для товаров
 export function useProducts(params?: {
@@ -21,42 +22,75 @@ export function useProducts(params?: {
 				sort: params?.sort || ['-dateAdded'],
 			})
 
-			return result.data.map((product: any) => ({
-				id: product.id,
-				slug: product.slug,
-				name: product.name,
-				img: getImageUrl(product.img),
-				category: product.category,
-				price: product.price != null ? Number(product.price) : 0,
-				oldPrice:
-					product.oldPrice != null && product.oldPrice !== ''
-						? Number(product.oldPrice)
-						: undefined,
-				desc: product.desc,
-				hot: product.hot,
-				new: product.new,
-				salePercent: product.salePercent,
-				limited: product.limited,
-				comingSoon: product.comingSoon,
-				outOfStock: product.outOfStock,
-				dateAdded: product.dateAdded,
-			}))
+			return result.data.map((product: any) => {
+				const mark = String(product?.mark ?? '').trim()
+				return {
+					id: product.id,
+					slug: product.slug,
+					name: product.name,
+					img: getImageUrl(product.img),
+					category: product.category,
+					price: product.price != null ? Number(product.price) : 0,
+					oldPrice:
+						product.oldPrice != null && product.oldPrice !== ''
+							? Number(product.oldPrice)
+							: undefined,
+					desc: product.desc,
+					hot: mark === 'hot',
+					new: mark === 'new',
+					salePercent: product.salePercent,
+					limited: mark === 'limited',
+					comingSoon: mark === 'comingSoon',
+					outOfStock: mark === 'outOfStock',
+					dateAdded: product.dateAdded,
+				}
+			})
 		},
 	})
 }
 
-export function useProduct(slug: string) {
+export function useProduct(slugOrId: string) {
 	return useQuery({
-		queryKey: ['product', slug],
+		queryKey: ['product', slugOrId],
 		queryFn: async () => {
-			const product = await productsApi.getBySlug(slug)
+			const numericId = Number(slugOrId)
+			const product = Number.isFinite(numericId) && slugOrId.trim() !== ''
+				? await productsApi.getById(numericId)
+				: await productsApi.getBySlug(slugOrId)
 			if (!product) return null
 
+			// images: M2M через products_files может прийти как массив ID junction-строк (например [1,2])
+			// В этом случае "раскрываем" до directus_files_id отдельным запросом.
+			const rawImages = (product as any).images
+			let extraImages: string[] = []
+			if (
+				Array.isArray(rawImages) &&
+				rawImages.length > 0 &&
+				rawImages.every((x: any) => typeof x === 'number')
+			) {
+				const junction = await directusClient.request(
+					(readItems as any)('products_files', {
+						filter: { id: { _in: rawImages } },
+						fields: ['id', 'directus_files_id'],
+					})
+				)
+				extraImages = Array.isArray(junction)
+					? junction
+							.map((row: any) => getImageUrl(row?.directus_files_id))
+							.filter(Boolean)
+					: []
+			}
+
+			const mark = String((product as any)?.mark ?? '').trim()
 			return {
 				id: product.id,
 				slug: product.slug,
 				name: product.name,
 				img: getImageUrl(product.img),
+				images:
+					extraImages.length > 0
+						? extraImages
+						: getImageUrls(Array.isArray(rawImages) ? rawImages : []),
 				category: product.category,
 				price: product.price != null ? Number(product.price) : 0,
 				oldPrice:
@@ -64,18 +98,22 @@ export function useProduct(slug: string) {
 						? Number(product.oldPrice)
 						: undefined,
 				desc: product.desc,
-				hot: product.hot,
-				new: product.new,
+				hint: (product as any).hint,
+				delivery: (product as any).delivery,
+				specifications: (product as any).specifications,
+				composition: (product as any).composition,
+				hot: mark === 'hot',
+				new: mark === 'new',
 				salePercent: product.salePercent,
-				limited: product.limited,
-				comingSoon: product.comingSoon,
-				outOfStock: product.outOfStock,
+				limited: mark === 'limited',
+				comingSoon: mark === 'comingSoon',
+				outOfStock: mark === 'outOfStock',
 				dateAdded: product.dateAdded,
 				wbUrl: product.wbUrl,
 				ozonUrl: product.ozonUrl,
 			}
 		},
-		enabled: !!slug,
+		enabled: !!slugOrId,
 	})
 }
 

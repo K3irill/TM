@@ -21,18 +21,19 @@ export interface Product {
 	name: string
 	slug: string
 	img?: string | { id: string; url: string }
+	images?: any[]
 	category: 'sets' | 'ramen' | 'snacks' | 'figures' | 'sweets' | 'drinks' | 'clothes' | 'sweet-sets'
 	price: number
 	oldPrice?: number
 	desc: string
-	hot?: boolean
-	new?: boolean
+	hint?: string
+	delivery?: string
+	specifications?: string
+	composition?: string
+  mark: 'hot' | 'new' | 'salePercent' | 'limited' | 'comingSoon' | 'outOfStock'
 	salePercent?: number
-	limited?: boolean
-	comingSoon?: boolean
-	outOfStock?: boolean
 	dateAdded: string
-	wbUrl?: string
+  wbUrl?: string
 	ozonUrl?: string
 	status?: string
 }

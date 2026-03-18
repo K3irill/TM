@@ -1,9 +1,9 @@
 import { createItem, deleteItem, readItem, readItems, readSingleton, updateItem } from '@directus/sdk'
 import {
-    AboutBrand,
-    directusClient,
-    Product,
-    RamenSet
+  AboutBrand,
+  directusClient,
+  Product,
+  RamenSet
 } from './client'
 
 // SDK v20: readItems/readItem/readSingleton требуют явных generic-параметров Schema/Collection/Query.
@@ -59,7 +59,28 @@ export const productsApi = {
 
 	async getById(id: number) {
 		const product = await directusClient.request(
-			rItem('products', id, { fields: ['*'] })
+			rItem('products', id, {
+				fields: [
+					'id',
+					'name',
+					'slug',
+					'img',
+					'images.*',
+					'category',
+					'price',
+					'oldPrice',
+					'desc',
+					'hint',
+					'delivery',
+					'specifications',
+					'composition',
+					'mark',
+					'salePercent',
+'wbUrl',
+					'ozonUrl',
+					'dateAdded',
+				],
+			})
 		)
 		return product
 	},
@@ -68,7 +89,7 @@ export const productsApi = {
 		const products = await directusClient.request(
 			rItems('products', {
 				filter: { slug: { _eq: slug } },
-				fields: ['*'],
+
 				limit: 1,
 			})
 		)

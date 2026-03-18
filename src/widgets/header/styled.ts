@@ -102,8 +102,16 @@ export const Socials = styled.div`
 		}
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		gap: 1rem;
-		font-size: 1.1rem;
+    position: absolute;
+    top: 1.5rem;
+    right: 0.5rem;
+
+    a{
+      flex-direction: column;
+      font-size: 0.75rem;
+      gap: 0.2rem;
+    }
 	}
 `
