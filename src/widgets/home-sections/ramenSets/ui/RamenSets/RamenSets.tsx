@@ -24,7 +24,7 @@ const sets = [
   {
     id: 2,
     name: 'Nong Classic Box',
-    link: '/goods/nong-classicbox',
+    link: '/goods/nong-classic-box',
     img: '/images/ramens/nong-classicbox/1.png',
 
     desc: 'Три вкуснейшних рамена от Nongshimi, палочки, соус, нори и сладости. 💞',
